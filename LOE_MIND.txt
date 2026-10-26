@@ -1,0 +1,47 @@
+NATURELLIS UUED KODULEHE JUHISED
+================================
+
+Fail: index.html
+
+See on täielik, valmis ühe leheküljega koduleht ostukorviga.
+Makselinki ei ole – tellimus saadetakse e-posti teel (mailto), seejärel saadad arve.
+
+MIS ON SEES
+-----------
+• Kaasaegne, looduslik ja usaldusväärne kujundus (rohelised + marjatoonid)
+• Tootekataloog 5 snäkiga (andmed praeguselt lehelt)
+• Ostukorv (salvestub brauserisse)
+• Tellimuse vorm: nimi, e-post, telefon, tarneviis (Omniva / Smartpost / DPD / Venipak), pakiautomaadi asukoht, märkused
+• Tellimus avaneb kliendi e-posti programmis valmis tekstiga → saadetakse info@naturellis.ee
+• Mobiilisõbralik
+• Ei vaja serverit ega andmebaasi – puhas HTML + CSS + JS
+
+KUIDAS KASUTADA
+---------------
+1. Ava index.html brauseris (topeltklõps või lohista brauserisse) – testimiseks.
+2. Lisa oma toodete päris fotod:
+   - Asenda emoji-plokk (tootekaardidel ja heros) <img> siltidega.
+   - Näide: <img src="pildid/maasikas.jpg" alt="Maasika-kirsi snäkk" class="w-full h-full object-cover">
+3. Pane failid hostimisele, mis ei maksa (või maksab väga vähe):
+   - Cloudflare Pages (tasuta + oma domeen)
+   - GitHub Pages (tasuta + oma domeen)
+   - Netlify (tasuta plaan)
+   - Või olemasolev hosting, kui juba maksad ainult domeeni eest
+4. Suuna naturellis.ee DNS uue hostingu juurde (A-kirje või CNAME vastavalt hostingu juhendile).
+
+SOOVITUSED UUTELE KLIENTIDELE MEELDIKUSEKS
+------------------------------------------
+• Lisa kvaliteetsed fotod (looduslik valgus, värsked marjad + valmis snäkid)
+• Lisa lühike “kliendi tagasiside” sektsioon kui sul on häid kommentaare
+• Hoia hinnad ja tarneinfo selged
+• Vorm on lihtne – vähem välju = rohkem tellimusi
+
+KUI SOOVID MUUTUSI
+------------------
+Ütle mulle:
+- milliseid värve / fonte eelistad
+- kas tahad eraldi tootelehti
+- kas lisada uudiskirja vormi
+- kas muuta tekste
+
+Siis kohandan faili.
