@@ -60,7 +60,7 @@
         <a href="#avaleht" class="flex items-center gap-2 group">
           <img src="https://naturellis.ee/images/logo.png" alt="Naturellis" class="h-14 sm:h-16 w-auto">
         </a>
-        <nav class="hidden md:flex items-center gap-8 text-lg font-medium text-nature-700">
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-nature-700">
           <a href="#snakid" class="hover:text-nature-500 transition">Snäkid</a>
           <a href="#miks" class="hover:text-nature-500 transition">Miks Naturellis?</a>
           <a href="#tarne" class="hover:text-nature-500 transition">Tarne</a>
@@ -82,8 +82,8 @@
         <div>
           <p class="inline-block bg-nature-200/60 text-nature-700 text-sm font-medium px-3 py-1 rounded-full mb-4">100% looduslik · Ilma lisatud suhkruta · Vegan</p>
           <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-nature-900 leading-tight mb-6">
-            Marjasnäkid<br>
-            <span class="text-nature-600">kuusevõrsetega</span><br>
+            Vitamiinirikkad<br>
+            <span class="text-nature-600">marjasnäkid</span><br>
             igasse päeva
           </h1>
           <p class="text-lg text-nature-700/90 mb-8 max-w-lg leading-relaxed">
@@ -145,12 +145,9 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-12">
         <h2 class="font-display text-3xl sm:text-4xl font-bold text-nature-900 mb-3">Meie snäkid</h2>
-        <p class="text-nature-600 max-w-xl mx-auto">Kuivatatud madalal temperatuuril 43 kraadi juures, et säiliks maksimaalne toitainete ja maitse hulk.</p>
+        <p class="text-nature-600 max-w-xl mx-auto">Iga pakk 50 g. Kuivatatud õrnalt, et säiliks maksimaalne toitainete ja maitse hulk.</p>
       </div>
-
-      <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-        <!-- Products injected by JS -->
-      </div>
+      <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"></div>
     </div>
   </section>
 
@@ -187,22 +184,10 @@
         <div class="bg-nature-50 rounded-3xl p-8 soft-shadow">
           <h3 class="font-display text-xl font-bold text-nature-800 mb-4">Kuidas tellida?</h3>
           <ol class="space-y-4 text-nature-700">
-            <li class="flex gap-3">
-              <span class="font-bold text-nature-500">1.</span>
-              <span>Vali snäkid ja lisa ostukorvi</span>
-            </li>
-            <li class="flex gap-3">
-              <span class="font-bold text-nature-500">2.</span>
-              <span>Täida tellimuse vorm (nimi, kontakt, pakiautomaat)</span>
-            </li>
-            <li class="flex gap-3">
-              <span class="font-bold text-nature-500">3.</span>
-              <span>Saadan Sulle ülekande info e-posti</span>
-            </li>
-            <li class="flex gap-3">
-              <span class="font-bold text-nature-500">4.</span>
-              <span>Pärast ülekande laekumist saadan paki valitud pakiautomaati</span>
-            </li>
+            <li class="flex gap-3"><span class="font-bold text-nature-500">1.</span><span>Vali snäkid ja lisa ostukorvi</span></li>
+            <li class="flex gap-3"><span class="font-bold text-nature-500">2.</span><span>Täida tellimuse vorm (nimi, kontakt, pakiautomaat)</span></li>
+            <li class="flex gap-3"><span class="font-bold text-nature-500">3.</span><span>Saadan Sulle ülekande info e-postile</span></li>
+            <li class="flex gap-3"><span class="font-bold text-nature-500">4.</span><span>Pärast ülekande laekumist saadan paki valitud pakiautomaati</span></li>
           </ol>
           <p class="mt-6 text-sm text-nature-600 bg-white rounded-xl p-4 border border-nature-100">
             <strong>Märkus:</strong> Makset ei tehta lehel. Kõik tellimused kinnitatakse e-posti teel.
@@ -261,13 +246,21 @@
     </div>
   </section>
 
-  <!-- Contact / Footer -->
+  <!-- Footer -->
   <footer class="bg-nature-900 text-nature-300 py-12">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid md:grid-cols-3 gap-8 mb-10">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
         <div>
           <p class="font-display text-xl font-bold text-white mb-3">Naturellis</p>
-          <p class="text-sm">Tervislikud ja vitamiinirikkad snäkid</p>
+          <p class="text-sm mb-4">Tervislikud ja vitamiinirikkad snäkid</p>
+          <div class="flex gap-3">
+            <a href="https://www.facebook.com/NaturellisOU" target="_blank" rel="noopener" aria-label="Facebook" class="w-10 h-10 rounded-full bg-nature-800 hover:bg-nature-700 flex items-center justify-center transition">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1V12h3l-.5 3H13v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/naturellis_oy/" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 rounded-full bg-nature-800 hover:bg-nature-700 flex items-center justify-center transition">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+          </div>
         </div>
         <div>
           <h3 class="font-semibold text-white mb-3">Kontakt</h3>
@@ -276,14 +269,22 @@
         </div>
         <div>
           <p class="font-semibold text-white mb-3">Tellimine</p>
-          <p class="text-sm">Lisa tooted ostukorvi ja esita tellimus. Saadan arve e-postile.</p>
+          <p class="text-sm">Lisa tooted ostukorvi ja esita tellimus. Saadan ülekande info e-postile.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-white mb-3">Liitu uudiskirjaga</p>
+          <p class="text-sm mb-3">Saa infot uute pakkumiste ja soodustuste kohta.</p>
+          <form id="newsletterForm" class="flex flex-col sm:flex-row gap-2" onsubmit="return subscribeNewsletter(event)">
+            <input type="email" id="newsletterEmail" required placeholder="Sinu e-post" class="flex-1 rounded-full px-4 py-2 text-sm text-nature-900 border-0 focus:outline-none focus:ring-2 focus:ring-nature-400">
+            <button type="submit" class="bg-nature-600 hover:bg-nature-500 text-white text-sm font-medium px-5 py-2 rounded-full transition whitespace-nowrap">Liitu</button>
+          </form>
         </div>
       </div>
       <div class="border-t border-nature-700 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm">
         <p>© 2018–2026 Naturellis OÜ</p>
         <div class="flex gap-6">
-          <a href="#" class="hover:text-white transition">Müügitingimused</a>
-          <a href="#" class="hover:text-white transition">Privaatsus</a>
+          <a href="tingimused.html" class="hover:text-white transition">Müügitingimused</a>
+          <a href="privaatsus.html" class="hover:text-white transition">Privaatsus</a>
         </div>
       </div>
     </div>
@@ -298,9 +299,7 @@
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
-    <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-4">
-      <!-- items -->
-    </div>
+    <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
     <div class="border-t border-nature-100 p-5 space-y-3 bg-nature-50">
       <div class="flex justify-between text-sm text-nature-600">
         <span>Tooted</span>
@@ -371,61 +370,19 @@
 
   <script>
     const products = [
-      {
-        id: 1,
-        slug: "maasika-kirsi",
-        name: "Maasika-kirsi snäkk kuusevõrsetega",
-        price: 3.50,
-        weight: "50 g",
-        desc: "Õun, banaan, maasikas, kirss, kookospiim, kuusevõrsed",
-        image: "https://naturellis.ee/sized/w500/userfiles/media/maasika,kirsi1.jpg"
-      },
-      {
-        id: 2,
-        slug: "vaarika-mustsostra",
-        name: "Vaarika-mustsõstra snäkk kuusevõrsetega",
-        price: 3.50,
-        weight: "50 g",
-        desc: "Õun, banaan, vaarikas, mustsõstar, kookospiim, kuusevõrsed",
-        image: "https://naturellis.ee/sized/w500/userfiles/media/vaarika_musts%C3%B5stra_uus.jpg"
-      },
-      {
-        id: 3,
-        slug: "marjasegu",
-        name: "Marjasegu snäkk kuusevõrsetega",
-        price: 3.50,
-        weight: "50 g",
-        desc: "Õun, banaan, marjasegu (maasikas, must- ja punane sõstar, aroonia, ploom), kookospiim, kuusevõrsed",
-        image: "https://naturellis.ee/sized/w500/userfiles/media/marjasegu_UUS2.jpg"
-      },
-      {
-        id: 4,
-        slug: "punasesostra",
-        name: "Punasesõstra snäkk kuusevõrsetega",
-        price: 3.50,
-        weight: "50 g",
-        desc: "Õun, banaan, punane sõstar, kookospiim, kuusevõrsed",
-        image: "https://naturellis.ee/sized/w500/userfiles/media/pun.sostar2023_0.jpg"
-      },
-      {
-        id: 5,
-        slug: "punasesostra-maasika",
-        name: "Punasesõstra-maasika snäkk kuusevõrsetega",
-        price: 3.50,
-        weight: "50 g",
-        desc: "Õun, banaan, punane sõstar, maasikas, kookospiim, kuusevõrsed",
-        image: "https://naturellis.ee/sized/w500/userfiles/media/pun.sostar_maasikas2.jpg"
-      }
+      { id: 1, slug: "maasika-kirsi", name: "Maasika-kirsi snäkk kuusevõrsetega", price: 3.50, weight: "50 g", desc: "Õun, banaan, maasikas, kirss, kookospiim, kuusevõrsed", image: "https://naturellis.ee/sized/w500/userfiles/media/maasika,kirsi1.jpg" },
+      { id: 2, slug: "vaarika-mustsostra", name: "Vaarika-mustsõstra snäkk kuusevõrsetega", price: 3.50, weight: "50 g", desc: "Õun, banaan, vaarikas, mustsõstar, kookospiim, kuusevõrsed", image: "https://naturellis.ee/sized/w500/userfiles/media/vaarika_musts%C3%B5stra_uus.jpg" },
+      { id: 3, slug: "marjasegu", name: "Marjasegu snäkk kuusevõrsetega", price: 3.50, weight: "50 g", desc: "Õun, banaan, marjasegu (maasikas, must- ja punane sõstar, aroonia, ploom), kookospiim, kuusevõrsed", image: "https://naturellis.ee/sized/w500/userfiles/media/marjasegu_UUS2.jpg" },
+      { id: 4, slug: "punasesostra", name: "Punasesõstra snäkk kuusevõrsetega", price: 3.50, weight: "50 g", desc: "Õun, banaan, punane sõstar, kookospiim, kuusevõrsed", image: "https://naturellis.ee/sized/w500/userfiles/media/pun.sostar2023_0.jpg" },
+      { id: 5, slug: "punasesostra-maasika", name: "Punasesõstra-maasika snäkk kuusevõrsetega", price: 3.50, weight: "50 g", desc: "Õun, banaan, punane sõstar, maasikas, kookospiim, kuusevõrsed", image: "https://naturellis.ee/sized/w500/userfiles/media/pun.sostar_maasikas2.jpg" }
     ];
     const SHIPPING = 4.00;
-
     let cart = JSON.parse(localStorage.getItem('naturellis_cart') || '[]');
 
     function saveCart() {
       localStorage.setItem('naturellis_cart', JSON.stringify(cart));
       updateCartUI();
     }
-
     function addToCart(id) {
       const product = products.find(p => p.id === id);
       if (!product) return;
@@ -436,7 +393,6 @@
       document.getElementById('cartCount').classList.add('cart-badge');
       setTimeout(() => document.getElementById('cartCount').classList.remove('cart-badge'), 300);
     }
-
     function changeQty(id, delta) {
       const item = cart.find(i => i.id === id);
       if (!item) return;
@@ -444,12 +400,10 @@
       if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
       saveCart();
     }
-
     function removeItem(id) {
       cart = cart.filter(i => i.id !== id);
       saveCart();
     }
-
     function updateCartUI() {
       const count = cart.reduce((sum, i) => sum + i.qty, 0);
       const subtotal = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
@@ -459,7 +413,6 @@
       if (subEl) subEl.textContent = subtotal.toFixed(2) + ' €';
       document.getElementById('cartTotal').textContent = total.toFixed(2) + ' €';
       document.getElementById('checkoutBtn').disabled = count === 0;
-
       const container = document.getElementById('cartItems');
       if (cart.length === 0) {
         container.innerHTML = '<p class="text-nature-500 text-center py-8">Ostukorv on tühi</p>';
@@ -485,7 +438,6 @@
         </div>
       `).join('');
     }
-
     function openCart() {
       document.getElementById('cartOverlay').classList.remove('hidden');
       document.getElementById('cartSidebar').classList.remove('translate-x-full');
@@ -495,7 +447,6 @@
       document.getElementById('cartOverlay').classList.add('hidden');
       document.getElementById('cartSidebar').classList.add('translate-x-full');
     }
-
     function openOrder() {
       const summary = document.getElementById('orderSummary');
       const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
@@ -508,10 +459,8 @@
     function closeOrder() {
       document.getElementById('orderModal').classList.add('hidden');
     }
-
     document.getElementById('cartBtn').addEventListener('click', openCart);
     document.getElementById('checkoutBtn').addEventListener('click', openOrder);
-
     document.getElementById('orderForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const fd = new FormData(this);
@@ -521,11 +470,8 @@
       const carrier = fd.get('carrier');
       const locker = fd.get('locker');
       const notes = fd.get('notes') || '-';
-
       let body = `Tere!%0D%0A%0D%0ASoovin tellida Naturellis snäkke:%0D%0A%0D%0A`;
-      cart.forEach(i => {
-        body += `• ${i.name} × ${i.qty} = ${(i.price * i.qty).toFixed(2)} €%0D%0A`;
-      });
+      cart.forEach(i => { body += `• ${i.name} × ${i.qty} = ${(i.price * i.qty).toFixed(2)} €%0D%0A`; });
       const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
       body += `%0D%0ATarne pakiautomaati: 4.00 €%0D%0A`;
       body += `Kokku: ${(subtotal + SHIPPING).toFixed(2)} €%0D%0A%0D%0A`;
@@ -536,13 +482,11 @@
       body += `Pakiautomaat: ${locker}%0D%0A`;
       body += `Märkused: ${notes}%0D%0A%0D%0A`;
       body += `Palun saada ülekande info e-postile. Aitäh!`;
-
       window.location.href = `mailto:info@naturellis.ee?subject=Naturellis tellimus – ${name}&body=${body}`;
       closeOrder();
       cart = [];
       saveCart();
     });
-
     document.getElementById('productGrid').innerHTML = products.map(p => `
       <article class="product-card bg-white rounded-2xl overflow-hidden soft-shadow flex flex-col">
         <a href="${p.slug}.html" class="aspect-[4/3] bg-nature-50 overflow-hidden block">
@@ -556,15 +500,22 @@
               <span class="text-lg font-bold text-nature-800">${p.price.toFixed(2)} €</span>
               <span class="text-sm text-nature-500"> / ${p.weight}</span>
             </div>
-            <button onclick="addToCart(${p.id})" class="bg-nature-700 hover:bg-nature-600 text-white text-sm font-medium px-4 py-2 rounded-full transition whitespace-nowrap">
-              Lisa korvi
-            </button>
+            <button onclick="addToCart(${p.id})" class="bg-nature-700 hover:bg-nature-600 text-white text-sm font-medium px-4 py-2 rounded-full transition whitespace-nowrap">Lisa korvi</button>
           </div>
         </div>
       </article>
     `).join('');
-
     updateCartUI();
+    function subscribeNewsletter(e) {
+      e.preventDefault();
+      const email = document.getElementById('newsletterEmail').value.trim();
+      if (!email) return false;
+      const subject = encodeURIComponent('Uudiskirjaga liitumine – Naturellis');
+      const body = encodeURIComponent('Tere!\n\nSoovin liituda Naturellis uudiskirjaga.\n\nE-post: ' + email + '\n\nAitäh!');
+      window.location.href = 'mailto:info@naturellis.ee?subject=' + subject + '&body=' + body;
+      document.getElementById('newsletterEmail').value = '';
+      return false;
+    }
   </script>
 </body>
 </html>
