@@ -323,50 +323,63 @@
   <!-- Order modal -->
   <div id="orderModal" class="fixed inset-0 bg-black/50 z-[60] hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="font-display text-2xl font-bold text-nature-900">Esita tellimus</h2>
-        <button onclick="closeOrder()" class="p-2 hover:bg-nature-50 rounded-full">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
+      <!-- Vormivaade -->
+      <div id="orderFormView">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="font-display text-2xl font-bold text-nature-900">Esita tellimus</h2>
+          <button type="button" onclick="closeOrder()" class="p-2 hover:bg-nature-50 rounded-full">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div id="orderSummary" class="bg-nature-50 rounded-2xl p-4 mb-6 text-sm space-y-3"></div>
+        <form id="orderForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-nature-800 mb-1">Nimi *</label>
+            <input type="text" name="name" required class="w-full border border-nature-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nature-400">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-nature-800 mb-1">E-post *</label>
+            <input type="email" name="email" required class="w-full border border-nature-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nature-400">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-nature-800 mb-1">Telefon *</label>
+            <input type="tel" name="phone" required class="w-full border border-nature-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nature-400">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-nature-800 mb-1">Tarneviis *</label>
+            <select id="carrierSelect" name="carrier" required class="w-full border border-nature-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nature-400">
+              <option value="">Vali pakiautomaat</option>
+              <option value="Omniva">Omniva</option>
+              <option value="Smartpost">Smartpost</option>
+              <option value="DPD">DPD</option>
+              <option value="Venipak">Venipak</option>
+            </select>
+          </div>
+          <div id="lockerField" class="relative">
+            <label class="block text-sm font-medium text-nature-800 mb-1">Pakiautomaadi asukoht *</label>
+            <input type="text" id="lockerSearch" name="locker" required placeholder="Vali esmalt tarneviis" disabled autocomplete="off" class="w-full border border-nature-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nature-400 bg-nature-50">
+            <div id="lockerDropdown" class="hidden absolute left-0 right-0 mt-1 max-h-48 overflow-y-auto border border-nature-200 rounded-xl bg-white shadow-lg z-20"></div>
+            <p id="lockerHint" class="text-xs text-nature-500 mt-1.5 hidden"></p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-nature-800 mb-1">Märkused</label>
+            <textarea name="notes" rows="2" class="w-full border border-nature-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nature-400"></textarea>
+          </div>
+          <button type="submit" id="submitOrderBtn" class="w-full bg-nature-700 hover:bg-nature-600 text-white font-semibold py-3.5 rounded-full transition">
+            Saada tellimus e-postile
+          </button>
+        </form>
       </div>
-      <div id="orderSummary" class="bg-nature-50 rounded-2xl p-4 mb-6 text-sm space-y-1"></div>
-      <form id="orderForm" class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-nature-800 mb-1">Nimi *</label>
-          <input type="text" name="name" required class="w-full border border-nature-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nature-400">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-nature-800 mb-1">E-post *</label>
-          <input type="email" name="email" required class="w-full border border-nature-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nature-400">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-nature-800 mb-1">Telefon *</label>
-          <input type="tel" name="phone" required class="w-full border border-nature-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nature-400">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-nature-800 mb-1">Tarneviis *</label>
-          <select id="carrierSelect" name="carrier" required class="w-full border border-nature-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nature-400">
-            <option value="">Vali pakiautomaat</option>
-            <option value="Omniva">Omniva</option>
-            <option value="Smartpost">Smartpost</option>
-            <option value="DPD">DPD</option>
-            <option value="Venipak">Venipak</option>
-          </select>
-        </div>
-        <div id="lockerField" class="relative">
-          <label class="block text-sm font-medium text-nature-800 mb-1">Pakiautomaadi asukoht *</label>
-          <input type="text" id="lockerSearch" name="locker" required placeholder="Vali esmalt tarneviis" disabled autocomplete="off" class="w-full border border-nature-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nature-400 bg-nature-50">
-          <div id="lockerDropdown" class="hidden absolute left-0 right-0 mt-1 max-h-48 overflow-y-auto border border-nature-200 rounded-xl bg-white shadow-lg z-20"></div>
-          <p id="lockerHint" class="text-xs text-nature-500 mt-1.5 hidden"></p>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-nature-800 mb-1">Märkused</label>
-          <textarea name="notes" rows="2" class="w-full border border-nature-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nature-400"></textarea>
-        </div>
-        <button type="submit" class="w-full bg-nature-700 hover:bg-nature-600 text-white font-semibold py-3.5 rounded-full transition">
-          Saada tellimus e-postile
-        </button>
-      </form>
+      <!-- Aitäh vaade -->
+      <div id="orderThanksView" class="hidden text-center py-4">
+        <img src="https://naturellis.ee/images/logo.png" alt="Naturellis" class="h-16 mx-auto mb-6">
+        <h2 class="font-display text-2xl font-bold text-nature-900 mb-3">Aitäh, teie tellimus on vastu võetud!</h2>
+        <p class="text-nature-700 mb-2">Võtame teiega ühendust esimesel võimalusel!</p>
+        <p class="text-nature-600 text-sm mb-1">Tellimuse number: <strong id="thanksOrderNo"></strong></p>
+        <p class="text-nature-600 text-sm mb-6">Kinnituskiri saadeti teie e-postile.</p>
+        <p class="text-nature-800 font-medium mb-6">Tervitustega!<br>Naturellis</p>
+        <button type="button" onclick="closeOrder()" class="bg-nature-700 hover:bg-nature-600 text-white font-semibold px-8 py-3 rounded-full transition">Sulge</button>
+      </div>
     </div>
   </div>
 
@@ -449,45 +462,144 @@
       document.getElementById('cartOverlay').classList.add('hidden');
       document.getElementById('cartSidebar').classList.add('translate-x-full');
     }
-    function openOrder() {
+    function renderOrderSummary() {
       const summary = document.getElementById('orderSummary');
+      if (cart.length === 0) {
+        summary.innerHTML = '<p class="text-nature-500">Ostukorv on tühi</p>';
+        return;
+      }
       const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
-      summary.innerHTML = cart.map(i => `<div class="flex justify-between"><span>${i.name} × ${i.qty}</span><span>${(i.price * i.qty).toFixed(2)} €</span></div>`).join('') +
-        `<div class="flex justify-between pt-1"><span>Tarne pakiautomaati</span><span>4.00 €</span></div>` +
-        `<div class="flex justify-between font-semibold pt-2 border-t border-nature-200 mt-2"><span>Kokku</span><span>${(subtotal + SHIPPING).toFixed(2)} €</span></div>`;
+      summary.innerHTML = cart.map(i => `
+        <div class="flex items-center justify-between gap-2">
+          <span class="flex-1 text-nature-800 leading-tight">${i.name}</span>
+          <div class="flex items-center gap-1.5 flex-shrink-0">
+            <button type="button" onclick="changeQty(${i.id}, -1); renderOrderSummary();" class="w-7 h-7 rounded-full border border-nature-200 flex items-center justify-center hover:bg-white text-sm">−</button>
+            <span class="w-6 text-center font-medium">${i.qty}</span>
+            <button type="button" onclick="changeQty(${i.id}, 1); renderOrderSummary();" class="w-7 h-7 rounded-full border border-nature-200 flex items-center justify-center hover:bg-white text-sm">+</button>
+          </div>
+          <span class="w-16 text-right font-medium">${(i.price * i.qty).toFixed(2)} €</span>
+        </div>`).join('') +
+        `<div class="flex justify-between pt-2 border-t border-nature-200 text-nature-600"><span>Tarne pakiautomaati</span><span>4.00 €</span></div>` +
+        `<div class="flex justify-between font-semibold text-nature-900"><span>Kokku</span><span id="orderTotalLabel">${(subtotal + SHIPPING).toFixed(2)} €</span></div>`;
+    }
+
+    function generateOrderNumber() {
+      const now = new Date();
+      const yy = String(now.getFullYear()).slice(-2);
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const key = 'naturellis_order_seq_' + yy + mm;
+      let seq = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+      if (seq > 999) seq = 1;
+      localStorage.setItem(key, String(seq));
+      return yy + mm + String(seq).padStart(3, '0');
+    }
+
+    function openOrder() {
+      document.getElementById('orderFormView').classList.remove('hidden');
+      document.getElementById('orderThanksView').classList.add('hidden');
+      renderOrderSummary();
       document.getElementById('orderModal').classList.remove('hidden');
       closeCart();
     }
     function closeOrder() {
       document.getElementById('orderModal').classList.add('hidden');
+      document.getElementById('orderFormView').classList.remove('hidden');
+      document.getElementById('orderThanksView').classList.add('hidden');
     }
     document.getElementById('cartBtn').addEventListener('click', openCart);
     document.getElementById('checkoutBtn').addEventListener('click', openOrder);
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
+
+    document.getElementById('orderForm').addEventListener('submit', async function(e) {
       e.preventDefault();
+      if (cart.length === 0) { alert('Ostukorv on tühi'); return; }
+      const btn = document.getElementById('submitOrderBtn');
+      btn.disabled = true;
+      btn.textContent = 'Saadan…';
+
       const fd = new FormData(this);
       const name = fd.get('name');
       const email = fd.get('email');
       const phone = fd.get('phone');
       const carrier = fd.get('carrier');
       const locker = fd.get('locker');
-      const notes = fd.get('notes') || '-';
-      let body = `Tere!%0D%0A%0D%0ASoovin tellida Naturellis snäkke:%0D%0A%0D%0A`;
-      cart.forEach(i => { body += `• ${i.name} × ${i.qty} = ${(i.price * i.qty).toFixed(2)} €%0D%0A`; });
+      const notes = (fd.get('notes') || '-').toString().trim() || '-';
       const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
-      body += `%0D%0ATarne pakiautomaati: 4.00 €%0D%0A`;
-      body += `Kokku: ${(subtotal + SHIPPING).toFixed(2)} €%0D%0A%0D%0A`;
-      body += `Nimi: ${name}%0D%0A`;
-      body += `E-post: ${email}%0D%0A`;
-      body += `Telefon: ${phone}%0D%0A`;
-      body += `Tarneviis: ${carrier}%0D%0A`;
-      body += `Pakiautomaat: ${locker}%0D%0A`;
-      body += `Märkused: ${notes}%0D%0A%0D%0A`;
-      body += `Palun saada ülekande info e-postile. Aitäh!`;
-      window.location.href = `mailto:info@naturellis.ee?subject=Naturellis tellimus – ${name}&body=${body}`;
-      closeOrder();
+      const total = (subtotal + SHIPPING).toFixed(2);
+      const orderNo = generateOrderNumber();
+
+      let productsText = cart.map(i =>
+        `• ${i.name} × ${i.qty} = ${(i.price * i.qty).toFixed(2)} €`
+      ).join('\n');
+
+      const message =
+`Tellimus ${orderNo}
+
+Nimi: ${name}
+E-post: ${email}
+Telefon: ${phone}
+Tarneviis: ${carrier}
+Pakiautomaat: ${locker}
+Märkused: ${notes}
+
+Tellitud tooted:
+${productsText}
+
+Tarne pakiautomaati: 4.00 €
+Kokku: ${total} €`;
+
+      const customerMessage =
+`Tere, ${name}!
+
+Aitäh tellimuse eest! Teie tellimus on vastu võetud.
+
+Tellimuse number: ${orderNo}
+
+${message}
+
+Võtame teiega ühendust esimesel võimalusel ülekande info edastamiseks.
+
+Tervitustega!
+Naturellis
+info@naturellis.ee
++372 525 6291`;
+
+      try {
+        // Üks päring: kiri info@naturellis.ee + automaatne kinnitus kliendi e-postile
+        const body = new FormData();
+        body.append('_subject', 'Tellimus ' + orderNo);
+        body.append('_template', 'box');
+        body.append('_captcha', 'false');
+        body.append('_replyto', email);
+        body.append('_autoresponse', customerMessage);
+        body.append('Tellimuse number', orderNo);
+        body.append('Nimi', name);
+        body.append('E-post', email);
+        body.append('Telefon', phone);
+        body.append('Tarneviis', carrier);
+        body.append('Pakiautomaat', locker);
+        body.append('Märkused', notes);
+        body.append('Tooted', productsText);
+        body.append('Tarne', '4.00 €');
+        body.append('Kokku', total + ' €');
+        body.append('message', message);
+
+        await fetch('https://formsubmit.co/ajax/info@naturellis.ee', {
+          method: 'POST',
+          body: body,
+          headers: { 'Accept': 'application/json' }
+        });
+      } catch (err) {
+        console.error(err);
+      }
+
+      document.getElementById('thanksOrderNo').textContent = orderNo;
+      document.getElementById('orderFormView').classList.add('hidden');
+      document.getElementById('orderThanksView').classList.remove('hidden');
       cart = [];
       saveCart();
+      this.reset();
+      btn.disabled = false;
+      btn.textContent = 'Saada tellimus e-postile';
     });
     document.getElementById('productGrid').innerHTML = products.map(p => `
       <article class="product-card bg-white rounded-2xl overflow-hidden soft-shadow flex flex-col">
