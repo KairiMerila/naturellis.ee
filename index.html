@@ -274,9 +274,16 @@
         <div>
           <p class="font-semibold text-white mb-3">Liitu uudiskirjaga</p>
           <p class="text-sm mb-3">Saa infot uute pakkumiste ja soodustuste kohta.</p>
-          <form id="newsletterForm" class="flex flex-col sm:flex-row gap-2" onsubmit="return subscribeNewsletter(event)">
-            <input type="email" id="newsletterEmail" required placeholder="Sinu e-post" class="flex-1 rounded-full px-4 py-2 text-sm text-nature-900 border-0 focus:outline-none focus:ring-2 focus:ring-nature-400">
-            <button type="submit" class="bg-nature-600 hover:bg-nature-500 text-white text-sm font-medium px-5 py-2 rounded-full transition whitespace-nowrap">Liitu</button>
+          <form id="newsletterForm" class="space-y-2" onsubmit="return subscribeNewsletter(event)">
+            <div class="flex flex-col sm:flex-row gap-2">
+              <input type="email" id="newsletterEmail" required placeholder="Sinu e-post" class="flex-1 rounded-full px-4 py-2 text-sm text-nature-900 border-0 focus:outline-none focus:ring-2 focus:ring-nature-400">
+              <button type="submit" id="newsletterBtn" class="bg-nature-600 hover:bg-nature-500 text-white text-sm font-medium px-5 py-2 rounded-full transition whitespace-nowrap">Liitu</button>
+            </div>
+            <label class="flex items-start gap-2 text-xs text-nature-400 cursor-pointer">
+              <input type="checkbox" id="newsletterConsent" required class="mt-0.5 rounded border-nature-500 text-nature-600 focus:ring-nature-400">
+              <span>Nõustun, et minu e-posti aadress saadetakse Naturellisele uudiskirjaga liitumiseks. <a href="privaatsus.html" class="underline hover:text-white">Privaatsuspoliitika</a></span>
+            </label>
+            <p id="newsletterMsg" class="text-xs hidden"></p>
           </form>
         </div>
       </div>
@@ -620,14 +627,48 @@ info@naturellis.ee
       </article>
     `).join('');
     updateCartUI();
-    function subscribeNewsletter(e) {
+    async function subscribeNewsletter(e) {
       e.preventDefault();
       const email = document.getElementById('newsletterEmail').value.trim();
+      const consent = document.getElementById('newsletterConsent');
+      const msg = document.getElementById('newsletterMsg');
+      const btn = document.getElementById('newsletterBtn');
       if (!email) return false;
-      const subject = encodeURIComponent('Uudiskirjaga liitumine – Naturellis');
-      const body = encodeURIComponent('Tere!\n\nSoovin liituda Naturellis uudiskirjaga.\n\nE-post: ' + email + '\n\nAitäh!');
-      window.location.href = 'mailto:info@naturellis.ee?subject=' + subject + '&body=' + body;
-      document.getElementById('newsletterEmail').value = '';
+      if (!consent.checked) {
+        msg.textContent = 'Palun kinnita nõusolek e-posti saatmiseks.';
+        msg.className = 'text-xs text-berry-400';
+        msg.classList.remove('hidden');
+        return false;
+      }
+      btn.disabled = true;
+      btn.textContent = 'Saadan…';
+      msg.classList.add('hidden');
+      try {
+        const body = new FormData();
+        body.append('_subject', 'Uudiskirjaga liitumine – Naturellis');
+        body.append('_template', 'box');
+        body.append('_captcha', 'false');
+        body.append('_replyto', email);
+        body.append('E-post', email);
+        body.append('Nõusolek', 'Jah – nõustun e-posti saatmisega uudiskirjaga liitumiseks');
+        body.append('message', 'Uus uudiskirja liituja\n\nE-post: ' + email + '\nNõusolek: Jah');
+        await fetch('https://formsubmit.co/ajax/info@naturellis.ee', {
+          method: 'POST',
+          body: body,
+          headers: { 'Accept': 'application/json' }
+        });
+        msg.textContent = 'Aitäh! Oled uudiskirjaga liitunud.';
+        msg.className = 'text-xs text-nature-300';
+        msg.classList.remove('hidden');
+        document.getElementById('newsletterEmail').value = '';
+        consent.checked = false;
+      } catch (err) {
+        msg.textContent = 'Saatmine ebaõnnestus. Proovi hiljem uuesti või kirjuta info@naturellis.ee';
+        msg.className = 'text-xs text-berry-400';
+        msg.classList.remove('hidden');
+      }
+      btn.disabled = false;
+      btn.textContent = 'Liitu';
       return false;
     }
 
