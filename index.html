@@ -490,15 +490,27 @@
         `<div class="flex justify-between font-semibold text-nature-900"><span>Kokku</span><span id="orderTotalLabel">${(subtotal + SHIPPING).toFixed(2)} €</span></div>`;
     }
 
-    function generateOrderNumber() {
+    async function generateOrderNumber() {
       const now = new Date();
-      const yy = String(now.getFullYear()).slice(-2);
-      const mm = String(now.getMonth() + 1).padStart(2, '0');
-      const key = 'naturellis_order_seq_' + yy + mm;
-      let seq = parseInt(localStorage.getItem(key) || '0', 10) + 1;
-      if (seq > 999) seq = 1;
-      localStorage.setItem(key, String(seq));
-      return yy + mm + String(seq).padStart(3, '0');
+      const yy = String(now.getFullYear()).slice(-2);    // aasta, nt 26
+      const dd = String(now.getDate()).padStart(2, '0'); // kuupäev, nt 29
+      const prefix = yy + dd;
+      const counterKey = 'order-' + prefix;
+      let seq = 1;
+      try {
+        // Globaalne loendur: kõik kliendid samal päeval jagavad ühte järjekorda
+        const res = await fetch('https://abacus.jasoncameron.dev/hit/naturellis-ee/' + counterKey);
+        const data = await res.json();
+        seq = parseInt(data.value, 10) || 1;
+        if (seq > 999) seq = ((seq - 1) % 999) + 1;
+      } catch (err) {
+        // Võrguviga → varuvariant sama brauseri jaoks
+        const key = 'naturellis_order_seq_' + prefix;
+        seq = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+        if (seq > 999) seq = 1;
+        localStorage.setItem(key, String(seq));
+      }
+      return prefix + String(seq).padStart(3, '0'); // nt 2629001, 2629002, …
     }
 
     function openOrder() {
@@ -532,7 +544,7 @@
       const notes = (fd.get('notes') || '-').toString().trim() || '-';
       const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
       const total = (subtotal + SHIPPING).toFixed(2);
-      const orderNo = generateOrderNumber();
+      const orderNo = await generateOrderNumber();
 
       let productsText = cart.map(i =>
         `• ${i.name} × ${i.qty} = ${(i.price * i.qty).toFixed(2)} €`
