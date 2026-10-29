@@ -383,7 +383,7 @@
         <h2 class="font-display text-2xl font-bold text-nature-900 mb-3">Aitäh, teie tellimus on vastu võetud!</h2>
         <p class="text-nature-700 mb-2">Võtame teiega ühendust esimesel võimalusel!</p>
         <p class="text-nature-600 text-sm mb-1">Tellimuse number: <strong id="thanksOrderNo"></strong></p>
-        <p class="text-nature-600 text-sm mb-6">Kinnituskiri saadeti teie e-postile.</p>
+        <p class="text-nature-600 text-sm mb-6">Tellimus jõudis meile e-posti teel. Võtame teiega ühendust esimesel võimalusel.</p>
         <p class="text-nature-800 font-medium mb-6">Tervitustega!<br>Naturellis</p>
         <button type="button" onclick="closeOrder()" class="bg-nature-700 hover:bg-nature-600 text-white font-semibold px-8 py-3 rounded-full transition">Sulge</button>
       </div>
@@ -528,9 +528,17 @@
     document.getElementById('cartBtn').addEventListener('click', openCart);
     document.getElementById('checkoutBtn').addEventListener('click', openOrder);
 
+    // Web3Forms tasuta võti – loo aadressil https://web3forms.com (seo info@naturellis.ee)
+    // Pärast registreerimist kleebi võti siia:
+    const WEB3FORMS_KEY = '26eb3290-5aa7-462c-b40e-08f7f758f11d';
+
     document.getElementById('orderForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       if (cart.length === 0) { alert('Ostukorv on tühi'); return; }
+      if (!WEB3FORMS_KEY || WEB3FORMS_KEY === 'YOUR_ACCESS_KEY_HERE') {
+        alert('E-posti saatmine pole seadistatud. Lisa Web3Forms võti index.html faili (WEB3FORMS_KEY).');
+        return;
+      }
       const btn = document.getElementById('submitOrderBtn');
       btn.disabled = true;
       btn.textContent = 'Saadan…';
@@ -546,7 +554,7 @@
       const total = (subtotal + SHIPPING).toFixed(2);
       const orderNo = await generateOrderNumber();
 
-      let productsText = cart.map(i =>
+      const productsText = cart.map(i =>
         `• ${i.name} × ${i.qty} = ${(i.price * i.qty).toFixed(2)} €`
       ).join('\n');
 
@@ -566,49 +574,41 @@ ${productsText}
 Tarne pakiautomaati: 4.00 €
 Kokku: ${total} €`;
 
-      const customerMessage =
-`Tere, ${name}!
-
-Aitäh tellimuse eest! Teie tellimus on vastu võetud.
-
-Tellimuse number: ${orderNo}
-
-${message}
-
-Võtame teiega ühendust esimesel võimalusel ülekande info edastamiseks.
-
-Tervitustega!
-Naturellis
-info@naturellis.ee
-+372 525 6291`;
-
+      let emailOk = false;
       try {
-        // Üks päring: kiri info@naturellis.ee + automaatne kinnitus kliendi e-postile
-        const body = new FormData();
-        body.append('_subject', 'Tellimus ' + orderNo);
-        body.append('_template', 'box');
-        body.append('_captcha', 'false');
-        body.append('_replyto', email);
-        body.append('_autoresponse', customerMessage);
-        body.append('Tellimuse number', orderNo);
-        body.append('Nimi', name);
-        body.append('E-post', email);
-        body.append('Telefon', phone);
-        body.append('Tarneviis', carrier);
-        body.append('Pakiautomaat', locker);
-        body.append('Märkused', notes);
-        body.append('Tooted', productsText);
-        body.append('Tarne', '4.00 €');
-        body.append('Kokku', total + ' €');
-        body.append('message', message);
-
-        await fetch('https://formsubmit.co/ajax/info@naturellis.ee', {
+        const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          body: body,
-          headers: { 'Accept': 'application/json' }
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: 'Tellimus ' + orderNo,
+            from_name: 'Naturellis tellimus',
+            name: name,
+            email: email,          // reply-to = kliendi e-post
+            phone: phone,
+            message: message,
+            order_no: orderNo,
+            carrier: carrier,
+            locker: locker,
+            notes: notes,
+            products: productsText,
+            total: total + ' €',
+            botcheck: ''
+          })
         });
+        const data = await res.json();
+        emailOk = !!(res.ok && data.success);
+        if (!emailOk) console.error('Web3Forms:', data);
       } catch (err) {
         console.error(err);
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Saada tellimus e-postile';
+
+      if (!emailOk) {
+        alert('Tellimuse saatmine e-postile ebaõnnestus. Proovi uuesti või kirjuta otse info@naturellis.ee');
+        return;
       }
 
       document.getElementById('thanksOrderNo').textContent = orderNo;
@@ -617,8 +617,6 @@ info@naturellis.ee
       cart = [];
       saveCart();
       this.reset();
-      btn.disabled = false;
-      btn.textContent = 'Saada tellimus e-postile';
     });
     document.getElementById('productGrid').innerHTML = products.map(p => `
       <article class="product-card bg-white rounded-2xl overflow-hidden soft-shadow flex flex-col">
@@ -652,28 +650,38 @@ info@naturellis.ee
         msg.classList.remove('hidden');
         return false;
       }
+      if (!WEB3FORMS_KEY || WEB3FORMS_KEY === 'YOUR_ACCESS_KEY_HERE') {
+        msg.textContent = 'E-posti saatmine pole seadistatud (Web3Forms võti puudub).';
+        msg.className = 'text-xs text-berry-400';
+        msg.classList.remove('hidden');
+        return false;
+      }
       btn.disabled = true;
       btn.textContent = 'Saadan…';
       msg.classList.add('hidden');
       try {
-        const body = new FormData();
-        body.append('_subject', 'Uudiskirjaga liitumine – Naturellis');
-        body.append('_template', 'box');
-        body.append('_captcha', 'false');
-        body.append('_replyto', email);
-        body.append('E-post', email);
-        body.append('Nõusolek', 'Jah – nõustun e-posti saatmisega uudiskirjaga liitumiseks');
-        body.append('message', 'Uus uudiskirja liituja\n\nE-post: ' + email + '\nNõusolek: Jah');
-        await fetch('https://formsubmit.co/ajax/info@naturellis.ee', {
+        const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          body: body,
-          headers: { 'Accept': 'application/json' }
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: 'Uudiskirjaga liitumine – Naturellis',
+            from_name: 'Naturellis uudiskiri',
+            email: email,
+            message: 'Uus uudiskirja liituja\n\nE-post: ' + email + '\nNõusolek: Jah',
+            botcheck: ''
+          })
         });
-        msg.textContent = 'Aitäh! Oled uudiskirjaga liitunud.';
-        msg.className = 'text-xs text-nature-300';
-        msg.classList.remove('hidden');
-        document.getElementById('newsletterEmail').value = '';
-        consent.checked = false;
+        const data = await res.json();
+        if (res.ok && data.success) {
+          msg.textContent = 'Aitäh! Oled uudiskirjaga liitunud.';
+          msg.className = 'text-xs text-nature-300';
+          msg.classList.remove('hidden');
+          document.getElementById('newsletterEmail').value = '';
+          consent.checked = false;
+        } else {
+          throw new Error('fail');
+        }
       } catch (err) {
         msg.textContent = 'Saatmine ebaõnnestus. Proovi hiljem uuesti või kirjuta info@naturellis.ee';
         msg.className = 'text-xs text-berry-400';
